@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Dashboard - SB Admin</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="{{asset('admin/css/styles.css')}}" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+
+    @include('admin.inc.admin-navbar')
+        
+        <div id="layoutSidenav">
+        @include('admin.inc.admin-sidebar')
+            <div id="layoutSidenav_content">
+                <main>
+
+                <div>
+  <br>
+       <div class="container-fluid px-4">
+       <div class="card">   
+            <div class="card-header">   
+               <h4>view cars</h4>
+            </div>
+            <div class="card-body">
+                  
+                 @if(session('message'))
+                       <div class="alert alert-success">{{session('message')}} </div>     
+                 @endif
+                 
+                 <table class="table table-boardered">
+                 <thead>
+                      <tr>
+                        <th>id</th>
+                        <th>carname</th>
+                        <th>brand</th>
+                        <th>nplate</th>
+                        <th>image</th>
+                        <th>rprice</th>
+                        <th>status</th>
+                        <th>edit</th>
+                        <th>delete</th>
+                      </tr>
+                </thead>
+                <tbody>
+                     @foreach($records as $record)
+                      <tr>
+                         <th>{{$record->id}}</th>
+                         <td>{{$record->carname}}</td>
+                         <td>{{$record->brand}}</td>
+                         <td>{{$record->nplate}}</td>
+                         <td><img src="cars/{{$record->image}}" height="90px" width="135px"></td>
+                         <td>{{$record->rentprice}}</td>
+                         <td>
+                             @if($record->status == '1') 
+                                <spam style="color: green;">Avail </spam>
+                             @endif
+
+                             @if($record->status == '0') 
+                                <spam style="color: red;">no avail </spam>
+                             @endif
+                         </td>
+                         <td>
+                              <a href="caredit/{{$record->id}}" class="btn btn-success">Edit</a>
+                         </td>
+                         <td>
+                              <a href="cardelete/{{$record->id}}" class="btn btn-danger">Delete</a>
+                         </td>
+                         <td>
+                              <a href="approve/{{$record->id}}" class="btn btn-success">Approve</a>
+                              <a href="reject/{{$record->id}}" class="btn btn-danger">Reject</a>
+                         </td>
+                         </tr>
+                     @endforeach
+                </tbody>
+                </table>
+                </div>
+            </div>
+      </div>
+</div>    
+
+                </main>
+                @include('admin.inc.admin-footer')
+            </div>
+        </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{{asset('admin/js/scripts.js')}}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="{{asset('admin/js/datatables-simple-demo.js')}}"></script>
+    </body>
+</html>
